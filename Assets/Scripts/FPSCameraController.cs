@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class FPSCameraController : MonoBehaviour
 {
+    // 1인칭 시점 카메라 설정
+    
     [SerializeField] Transform cameraRoot;
     [SerializeField] float mouseSensitivity;
 
@@ -31,6 +33,7 @@ public class FPSCameraController : MonoBehaviour
     {
         yRotation += lookDelta.x * mouseSensitivity * Time.deltaTime;
         xRotation -= lookDelta.y * mouseSensitivity * Time.deltaTime;
+        // Clamp를 이용해 x회전 범위 제한 ( -80f ~ 80f )
         xRotation = Mathf.Clamp(xRotation, -80f, 80f);
 
         // 위아래는 카메라만
@@ -38,7 +41,8 @@ public class FPSCameraController : MonoBehaviour
         // 좌우는 캐릭터만
         transform.localRotation = Quaternion.Euler(0, yRotation, 0);
     }
-
+    
+    // pointer - delta 를 이용해 Vector2 값을 받아옴
     private void OnLook(InputValue value)
     {
         lookDelta = value.Get<Vector2>();

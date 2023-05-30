@@ -26,6 +26,7 @@ public class TPSCameraController : MonoBehaviour
     private void Update()
     {
         Vector3 lookPoint = Camera.main.transform.position + Camera.main.transform.forward * lookDistance;
+        // 바닥이 없을 경우도 있으므로 0이 아니라 transform.position.y 이용
         lookPoint.y = transform.position.y;
         transform.LookAt(lookPoint);
     }
@@ -41,7 +42,7 @@ public class TPSCameraController : MonoBehaviour
         xRotation -= lookDelta.y * mouseSensitivity * Time.deltaTime;
         xRotation = Mathf.Clamp(xRotation, -80f, 80f);
 
-        // 위아래는 카메라만
+        // 1인칭과 다르게 회전
         cameraRoot.rotation = Quaternion.Euler(xRotation, yRotation, 0);
     }
 

@@ -40,6 +40,7 @@ public class PlayerMover : MonoBehaviour
 
     private void Jump()
     {
+        // 부드러운 점프
         ySpeed += Physics.gravity.y * Time.deltaTime;
 
         if (GroundCheck() && ySpeed < 0)
@@ -57,6 +58,7 @@ public class PlayerMover : MonoBehaviour
     private bool GroundCheck()
     {
         RaycastHit hit;
+        // SphereCast -> 직선 레이저가 아니라 원 모양 레이저로 판단
         return Physics.SphereCast(transform.position + Vector3.up * 1, 0.5f, Vector3.down, out hit, 0.6f);
     }
 }
