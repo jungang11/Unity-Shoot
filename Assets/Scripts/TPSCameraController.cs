@@ -8,6 +8,7 @@ public class TPSCameraController : MonoBehaviour
     [SerializeField] Transform cameraRoot;
     [SerializeField] float mouseSensitivity;
     [SerializeField] float lookDistance;
+    [SerializeField] Transform aimTarget;
 
     private Vector2 lookDelta;
     private float xRotation;
@@ -25,15 +26,21 @@ public class TPSCameraController : MonoBehaviour
 
     private void Update()
     {
-        Vector3 lookPoint = Camera.main.transform.position + Camera.main.transform.forward * lookDistance;
-        // 바닥이 없을 경우도 있으므로 0이 아니라 transform.position.y 이용
-        lookPoint.y = transform.position.y;
-        transform.LookAt(lookPoint);
+        Rotate();
     }
 
     private void LateUpdate()
     {
         Look();
+    }
+
+    private void Rotate()
+    {
+        Vector3 lookPoint = Camera.main.transform.position + Camera.main.transform.forward * lookDistance;
+        aimTarget.position = lookPoint;
+        // 바닥이 없을 경우도 있으므로 0이 아니라 transform.position.y 이용
+        lookPoint.y = transform.position.y;
+        transform.LookAt(lookPoint);
     }
 
     private void Look()
